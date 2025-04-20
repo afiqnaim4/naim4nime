@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Video Anime</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://example.com/your-anime-background.jpg'); /* Ganti dengan URL gambar anime */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #FF5733; /* Warna anime */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #FF4500;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Tambah Video Anime Baru</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Judul Anime:</label>
+                <input type="text" name="title" id="title" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="video" class="form-label">Pilih Video Anime:</label>
+                <input type="file" name="video" id="video" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Upload Video</button>
+        </form>
+    </div>
+
+</body>
+</html>

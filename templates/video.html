@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ video.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <a href="/">← Kembali</a>
+    <h2>{{ video.name }}</h2>
+    <video width="640" controls>
+        <source src="{{ url_for('static', filename='videos/' + video.filename) }}" type="video/mp4">
+    </video>
+    <p>{{ video.description }}</p>
+</body>
+</html>
