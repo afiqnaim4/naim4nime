@@ -3,16 +3,14 @@ import json, os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = '041209@'  # Boleh tukar
+app.secret_key = '041209@'  # Boleh tukar kepada kunci rahsia lain
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 VIDEO_JSON = 'video.json'
+USERS_JSON = 'users.json'
 
 # Menyediakan folder upload jika tiada
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
-
-# Fail users.json untuk login
-USERS_JSON = 'users.json'
 
 @app.route('/')
 def index():
@@ -97,4 +95,3 @@ if __name__ == '__main__':
     # Dapatkan PORT dari environment variable (Render memberi PORT yang berbeza)
     port = int(os.environ.get("PORT", 5000))  # Jika tiada PORT, guna 5000
     app.run(debug=True, host='0.0.0.0', port=port)
-
