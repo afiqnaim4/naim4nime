@@ -3,11 +3,12 @@ import json, os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = '041209@'
+app.secret_key = '041209@'  # Boleh tukar kepada kunci rahsia lain
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 VIDEO_JSON = 'video.json'
 USERS_JSON = 'users.json'
 
+# Menyediakan folder upload jika tiada
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -24,17 +25,17 @@ def index():
     if search_query:
         videos = [v for v in videos if search_query in v['title'].lower()]
 
-    is_admin = 'user' in session
-    return render_template('index.html', videos=videos, is_admin=is_admin)
+    return render_template('index.html', videos=videos)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))  # Redirect ke login jika tidak log masuk
 
     if request.method == 'POST':
         title = request.form['title']
         video = request.files['video']
+
         filename = secure_filename(video.filename)
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         video.save(filepath)
@@ -68,22 +69,22 @@ def login():
                 users = json.load(f)
 
             if username in users and users[username] == password:
-                session['user'] = username
+                session['user'] = username  # Simpan username dalam sesi
                 flash('Berjaya login!', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Username atau password salah.', 'danger')
         else:
-            flash('Fail pengguna tiada.', 'danger')
+            flash('Sistem tidak dapat membaca pengguna. Fail users.json hilang.', 'danger')
 
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    session.pop('user', None)  # Hapuskan sesi apabila logout
     flash('Anda berjaya log keluar', 'success')
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5000))  # Jika tiada PORT, guna 5000
     app.run(debug=True, host='0.0.0.0', port=port)

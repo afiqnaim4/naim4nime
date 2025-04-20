@@ -2,23 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Video - naim4nime</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Upload Video ke naim4nime</h1>
-    </header>
+    <div class="container">
+        <h1 class="glow">🆙 Upload Video Baru</h1>
 
-    <form method="POST" enctype="multipart/form-data">
-        <label for="title">Tajuk Video:</label>
-        <input type="text" name="title" id="title" required>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-        <label for="video">Pilih Video:</label>
-        <input type="file" name="video" id="video" accept="video/*" required>
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <label for="title">Judul Video</label>
+            <input type="text" name="title" required>
 
-        <button type="submit">Muatturun Video</button>
-    </form>
+            <label for="video">Fail Video</label>
+            <input type="file" name="video" accept="video/*" required>
+
+            <button type="submit" class="btn-upload">Upload</button>
+        </form>
+
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('index') }}" class="link-back">← Kembali ke laman utama</a>
+        </div>
+    </div>
 </body>
 </html>
